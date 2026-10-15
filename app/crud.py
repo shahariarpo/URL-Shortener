@@ -28,7 +28,7 @@ def create_url(conn, url: str):
 
 def increment_access(conn, code: str):
     conn.execute("UPDATE urls SET access_count = access_count + 1 WHERE short_code = ?", (code,))
-    conn.commit
+    conn.commit()
 
 def update_url(conn, code:str, url: str):
     now = now_iso()

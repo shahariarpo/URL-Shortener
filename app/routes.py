@@ -8,7 +8,7 @@ from app.schema import UrlBody
 router = APIRouter()
 
 def get_row_or_404(conn, code: str):
-    row = crud.get_by_code(code)
+    row = crud.get_by_code(conn, code)
     if row is None:
         raise HTTPException(status_code=404, detail="Short URL Not Found")
     return row

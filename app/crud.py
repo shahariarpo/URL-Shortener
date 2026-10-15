@@ -13,11 +13,11 @@ def row_to_dict(row, include_stats: bool = False):
     return data
 
 def get_by_code(conn, code: str):
-    return conn.execute("SELECT FROM urls WHERE short_code = ?", (code,)).fetchone()
+    return conn.execute("SELECT * FROM urls WHERE short_code = ?", (code,)).fetchone()
 
 
 def create_url(conn, url: str):
-    code = generate_code(url)
+    code = generate_code(conn)
     now = now_iso()
     conn.execute("INSERT INTO urls (url, short_code, created_at, updated_at)"
                 "VALUES (?, ?, ?, ?)",
@@ -27,7 +27,7 @@ def create_url(conn, url: str):
     return get_by_code(conn, code)
 
 def increment_access(conn, code: str):
-    conn.execute("UPDATE urls SET access_count = access_cout + 1 WHERE short_code = ?", (code,))
+    conn.execute("UPDATE urls SET access_count = access_count + 1 WHERE short_code = ?", (code,))
     conn.commit
 
 def update_url(conn, code:str, url: str):

@@ -30,3 +30,12 @@ def increment_access(conn, code: str):
     conn.execute("UPDATE urls SET access_count = access_cout + 1 WHERE short_code = ?", (code,))
     conn.commit
 
+def update_url(conn, code:str, url: str):
+    now = now_iso()
+    conn.execute("UPDATE urls SET url = ?, updated_at = ? WHERE short_code = ?", (url, now, code,))
+    conn.commit()
+    return get_by_code(conn, code)
+
+def delete_url(conn, code: str):
+    conn.execute("DELETE FROM urls WHERE short_code = ?", (code,))
+    conn.commit()

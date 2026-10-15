@@ -17,3 +17,16 @@ def init_db():
 
     conn.commit()
     conn.close()
+
+def get_db():
+    conn = sqlite3.connect(DB_FILE, check_same_thread=False)
+    conn.row_factory = sqlite3.Row
+
+    try:
+        yield conn
+    finally:
+        conn.close()
+
+if __name__ == "__main__":
+    init_db()
+    print("Database Ready")

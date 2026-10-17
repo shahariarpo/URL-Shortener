@@ -29,7 +29,6 @@ It supports creating, retrieving, updating and deleting short URLs, and it track
 ```
 URL-Shortener/
 ├── app/
-│   ├── __init__.py
 │   ├── main.py         # creates the app, startup, error handler, redirect route
 │   ├── database.py     # init_db() and get_db() (SQLite connection per request)
 │   ├── schemas.py      # Pydantic request model (UrlBody)
